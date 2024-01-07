@@ -1,5 +1,9 @@
 import React from 'react'
+import * as actions from '../state/action-creators'
 
 export default function Message(props) {
-  return <div id="message">Nice job!</div>
+  const {
+    message
+  } = props
+  return <div id="message">{message}</div>
 }

@@ -1,20 +1,54 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-export default function Wheel(props) {
+// "Cog Active" & "B" should be represented by state
+// Logic for increasing index & moving B goes in reducer.
+
+// import { moveCounterClockwise, moveClockwise } from '../state/action-creators'
+
+import * as actionCreators from '../state/action-creators'
+
+// const handleMoveClockwise = () => {
+//   console.log('DISPATCHING MOVECLOCKWISE')
+//   moveClockwise()
+// }
+
+// const handleMoveCounterClockwise = () => {
+//   console.log('DISPATCHING MOVECOUNTERCLOCKWISE')
+//   moveCounterClockwise()
+// }
+
+function Wheel(props) {
+  const {
+    wheel,
+    moveClockwise,
+    moveCounterClockwise
+  } = props
   return (
     <div id="wrapper">
       <div id="wheel">
-        <div className="cog active" style={{ "--i": 0 }}>B</div>
-        <div className="cog" style={{ "--i": 1 }}></div>
-        <div className="cog" style={{ "--i": 2 }}></div>
-        <div className="cog" style={{ "--i": 3 }}></div>
-        <div className="cog" style={{ "--i": 4 }}></div>
-        <div className="cog" style={{ "--i": 5 }}></div>{/* --i is a custom CSS property, no need to touch that nor the style object */}
+        {
+          [...Array(6).keys()].map(key => {
+            return (
+              <div className = {`cog${wheel === key ? ' active' : ''}`} key={key} style={{ "--i": key}}>
+                {wheel === key ? 'B' : null}
+              </div>
+            )
+          })
+        }
       </div>
       <div id="keypad">
-        <button id="counterClockwiseBtn" >Counter clockwise</button>
-        <button id="clockwiseBtn">Clockwise</button>
+        <button id="counterClockwiseBtn" onClick={moveCounterClockwise}>Counter clockwise</button>
+        <button id="clockwiseBtn" onClick={moveClockwise}>Clockwise</button>
       </div>
     </div>
   )
 }
+
+// const mapStateToProps = state => {
+//   return ({
+//     state
+//   })
+// }
+
+export default connect(st => st, actionCreators)(Wheel)

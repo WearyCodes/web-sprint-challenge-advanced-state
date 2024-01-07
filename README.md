@@ -86,3 +86,10 @@ In order to complete this project, you must fix the following modules:
 ## Stretch Goals
 
 - Without breaking any tests, see to randomizing the order in which answers appear.
+
+- 1. ONLY MAKING CHANGES TO FORM, QUIZ AND WHEEL FOR COMPONENTS.
+- 2. ONLY MAKING CHANGES TO ACTION-CREATORS AND ACTION-TYPES.
+- 3. KEEPING PROPS
+- 4. FORM, QUIZ AND WHEEL CONNECT ACTION CREATORS.
+- 5. FILL LOGIC OF ACTION-CREATORS
+- 6. 
