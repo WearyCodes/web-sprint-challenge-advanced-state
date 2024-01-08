@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../state/action-creators';
 
 function Quiz(props) {
-  const { quiz, selectAnswer, postAnswer, resetForm } = props;
+  const { quiz, selectAnswer, postAnswer, resetForm, fetchQuiz } = props;
 
   const handleAnswerSelect = (answerId) => {
     selectAnswer(answerId);
@@ -13,7 +13,9 @@ function Quiz(props) {
     // Assuming you have the selected answer in your state
     postAnswer().then(() => {
       // Fetch the next quiz after posting the answer
-      props.fetchQuiz();
+      postQuiz(form).then(() => {
+        fetchQuiz()
+      }); // Use the action directly without props
     });
   };
 

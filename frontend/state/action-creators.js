@@ -20,38 +20,101 @@ export function setMessage(message) {
 }
 
 export function setQuiz(quiz) { 
-  return { type: types.SET_QUIZ_INTO_STATE, payload: quiz}
+  return { type: types.SET_QUIZ_INTO_STATE, payload: quiz || null}
 }
 
 export function inputChange(id, value) {
-  return ({type: INPUT_CHANGE, payload: {id, value}})
+  return ({type: types.INPUT_CHANGE, payload: {id, value}})
 }
 
 export function resetForm() {
-  return ({type: RESET_FORM})
+  return ({type: types.RESET_FORM})
 } // No payload 
 
 // ❗ Async action creators
 export function fetchQuiz() {
   return function (dispatch) {
-    // First, dispatch an action to reset the quiz state (so the "Loading next quiz..." message can display)
-    // On successful GET:
-    // - Dispatch an action to send the obtained quiz to its state
-  }
+    // Fetch the next quiz
+    fetch('http://localhost:9000/api/quiz/next')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch quiz. Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((quiz) => {
+        dispatch(setQuiz(quiz));
+      })
+      .catch((error) => {
+        console.error('Error fetching quiz:', error);
+        // You might dispatch an action to set an error message in the state
+      });
+  };
 }
+
 export function postAnswer() {
-  return function (dispatch) {
-    // On successful POST:
-    // - Dispatch an action to reset the selected answer state
-    // - Dispatch an action to set the server message to state
-    // - Dispatch the fetching of the next quiz
-  }
+  return function (dispatch, getState) {
+    const selectedAnswer = getState().selectedAnswer;
+    const quizId = getState().quiz.id;
+
+    // Post the answer
+    fetch('http://localhost:9000/api/quiz/answer', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ quiz_id: quizId, answer_id: selectedAnswer }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to post answer. Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        dispatch(resetForm());
+        dispatch(setMessage(responseData.feedback));
+        dispatch(fetchQuiz());
+      })
+      .catch((error) => {
+        console.error('Error posting answer:', error);
+        // You might dispatch an action to set an error message in the state
+      });
+  };
 }
-export function postQuiz() {
+
+export function postQuiz(payload) {
   return function (dispatch) {
-    // On successful POST:
-    // - Dispatch the correct message to the the appropriate state
-    // - Dispatch the resetting of the form
-  }
+
+    const updatedPayload = {
+      question_text: payload.newQuestion,
+      true_answer_text: payload.newTrueAnswer,
+      false_answer_text: payload.newFalseAnswer,
+    };
+    console.log(updatedPayload)
+    // Post a new quiz
+    fetch('http://localhost:9000/api/quiz/new', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedPayload),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to post quiz. Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((responseData) => {
+        dispatch(setMessage(responseData.message));
+        dispatch(setQuiz(responseData.quiz))
+        dispatch(resetForm());
+        console.log(responseData)
+      })
+      .catch((error) => {
+        console.error('Error posting quiz:', error);
+        // You might dispatch an action to set an error message in the state
+      });
+  };
 }
-// ❗ On promise rejections, use log statements or breakpoints, and put an appropriate error message in state
