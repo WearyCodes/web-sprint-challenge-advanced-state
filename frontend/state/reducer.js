@@ -3,7 +3,7 @@
 // Switch case for action.type matching what you want to do
 import { combineReducers } from 'redux'
 
-import { INPUT_CHANGE, RESET_FORM, MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE } from './action-types'
+import { INPUT_CHANGE, RESET_FORM, MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER, SET_INFO_MESSAGE } from './action-types'
 
 // import * as types from './action-types'
 
@@ -13,7 +13,7 @@ function wheel(state = initialWheelState, action) {
   switch(action.type) {
     case MOVE_CLOCKWISE:
       const nextIndexCW = state + 1;
-      return nextIndexCW === 5 ? 0 : nextIndexCW;
+      return nextIndexCW === 6 ? 0 : nextIndexCW;
     case MOVE_COUNTERCLOCKWISE:
       const nextIndexCCW = state - 1;
       return nextIndexCCW === -1 ? 5 : nextIndexCCW;
@@ -37,6 +37,8 @@ const initialSelectedAnswerState = null;
 
 function selectedAnswer(state = initialSelectedAnswerState, action) {
   switch (action.type) {
+    case SET_SELECTED_ANSWER:
+      console.log(action)
     // Add cases as needed for selected answer-related actions
     default:
       return state;
@@ -47,6 +49,8 @@ const initialMessageState = '';
 
 function infoMessage(state = initialMessageState, action) {
   switch (action.type) {
+    case SET_INFO_MESSAGE: 
+    return action.payload
     // Add cases as needed for info message-related actions
     default:
       return state;

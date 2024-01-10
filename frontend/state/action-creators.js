@@ -107,8 +107,9 @@ export function postQuiz(payload) {
         return response.json();
       })
       .then((responseData) => {
-        dispatch(setMessage(responseData.message));
-        dispatch(setQuiz(responseData.quiz))
+        console.log(responseData)
+        dispatch(setMessage('woo'));
+        dispatch(setQuiz(responseData))
         dispatch(resetForm());
         console.log(responseData)
       })

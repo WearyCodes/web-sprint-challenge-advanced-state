@@ -23,7 +23,7 @@ function Quiz(props) {
     <div id="wrapper">
       {quiz ? (
         <>
-          <h2>What is a closure?</h2>
+          <h2>{quiz.question}</h2>
 
           <div id="quizAnswers">
             {quiz.answers.map((answer) => (
@@ -33,7 +33,7 @@ function Quiz(props) {
                 onClick={() => handleAnswerSelect(answer.id)}
               >
                 {answer.text}
-                <button>SELECTED</button>
+                <button>{answer.id === props.selectedAnswer ? "selected" : 'select'}</button>
               </div>
             ))}
           </div>
