@@ -5,7 +5,7 @@ import * as actionCreators from '../state/action-creators';
 
 
 function Quiz(props) {
-  const { quiz, selectAnswer, postAnswer, resetForm, fetchQuiz } = props;
+  const { quiz, selectAnswer, postAnswer, resetForm, fetchQuiz, selectedAnswer } = props;
 
     useEffect(() => {
     console.log(props)
@@ -48,9 +48,9 @@ function Quiz(props) {
             ))}
           </div>
 
-          {props.selectedAnswer ? <button id="submitAnswerBtn" onClick={handleAnswerSubmit}>
+          <button id="submitAnswerBtn" onClick={handleAnswerSubmit} disabled = {!selectedAnswer ? true : false}>
             Submit answer
-          </button> : ''}
+          </button>
         </>
       ) : (
         'Loading next quiz...'
