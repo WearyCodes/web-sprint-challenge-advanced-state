@@ -39,11 +39,11 @@ function Quiz(props) {
             {quiz.answers.map((answer) => (
               <div
                 key={answer.answer_id}
-                className={`answer ${answer.id === props.selectedAnswer ? 'selected' : ''}`}
+                className={`answer ${answer.answer_id === props.selectedAnswer ? 'selected' : ''}`}
                 onClick={() => handleAnswerSelect(answer.answer_id)}
               >
                 {answer.text}
-                <button>{answer.id === props.selectedAnswer ? "SELECTED" : 'select'}</button>
+                <button>{answer.answer_id === props.selectedAnswer ? "SELECTED" : 'select'}</button>
               </div>
             ))}
           </div>
