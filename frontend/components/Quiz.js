@@ -9,7 +9,7 @@ function Quiz(props) {
     fetchQuiz()
   }, [])
   const handleAnswerSelect = (answerId) => {
-    selectAnswer(answerId);
+    selectAnswer(quiz.id, answerId);
   };
 
   const handleAnswerSubmit = () => {
