@@ -11,8 +11,8 @@ export function moveCounterClockwise() {
   return ({type: types.MOVE_COUNTERCLOCKWISE})
 }
 
-export function selectAnswer(questionID, answer_id) { 
-  return {type: types.SET_SELECTED_ANSWER, payload: {questionID, answer_id}}
+export function selectAnswer(answer_id) { 
+  return {type: types.SET_SELECTED_ANSWER, payload: {answer_id}}
 }
 
 export function setMessage(message) { 
@@ -20,7 +20,7 @@ export function setMessage(message) {
 }
 
 export function setQuiz(quiz) { 
-  return { type: types.SET_QUIZ_INTO_STATE, payload: quiz || null}
+  return { type: types.SET_QUIZ_INTO_STATE, payload: quiz}
 }
 
 export function inputChange(id, value) {

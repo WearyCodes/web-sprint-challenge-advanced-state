@@ -2,14 +2,21 @@ import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../state/action-creators';
 
+
+
 function Quiz(props) {
   const { quiz, selectAnswer, postAnswer, resetForm, fetchQuiz } = props;
-  
+
+    useEffect(() => {
+    console.log(props)
+  }, [])
+
   useEffect(() => {
     fetchQuiz()
   }, [])
+
   const handleAnswerSelect = (answerId) => {
-    selectAnswer(quiz.id, answerId);
+    selectAnswer(answerId);
   };
 
   const handleAnswerSubmit = () => {
@@ -31,12 +38,12 @@ function Quiz(props) {
           <div id="quizAnswers">
             {quiz.answers.map((answer) => (
               <div
-                key={answer.id}
+                key={answer.answer_id}
                 className={`answer ${answer.id === props.selectedAnswer ? 'selected' : ''}`}
-                onClick={() => handleAnswerSelect(answer.id)}
+                onClick={() => handleAnswerSelect(answer.answer_id)}
               >
                 {answer.text}
-                <button>{answer.id === props.selectedAnswer ? "selected" : 'select'}</button>
+                <button>{answer.id === props.selectedAnswer ? "SELECTED" : 'select'}</button>
               </div>
             ))}
           </div>

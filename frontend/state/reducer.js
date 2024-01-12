@@ -38,10 +38,8 @@ const initialSelectedAnswerState = null;
 function selectedAnswer(state = initialSelectedAnswerState, action) {
   switch (action.type) {
     case SET_SELECTED_ANSWER:
-      return {
-        ...state,
-        [action.payload.questionID]: action.payload.answer_id,
-      };
+      console.log('selected answer', action.payload)
+      return action.payload
     // Add cases as needed for selected answer-related actions
     default:
       return state;
