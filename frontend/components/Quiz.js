@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../state/action-creators';
 
 function Quiz(props) {
   const { quiz, selectAnswer, postAnswer, resetForm, fetchQuiz } = props;
-
+  
+  useEffect(() => {
+    fetchQuiz()
+  }, [])
   const handleAnswerSelect = (answerId) => {
     selectAnswer(answerId);
   };

@@ -43,6 +43,7 @@ export function fetchQuiz() {
         return response.json();
       })
       .then((quiz) => {
+        console.log(quiz)
         dispatch(setQuiz(quiz));
       })
       .catch((error) => {
