@@ -38,9 +38,9 @@ function Quiz(props) {
             ))}
           </div>
 
-          <button id="submitAnswerBtn" onClick={handleAnswerSubmit}>
+          {props.selectedAnswer ? <button id="submitAnswerBtn" onClick={handleAnswerSubmit}>
             Submit answer
-          </button>
+          </button> : ''}
         </>
       ) : (
         'Loading next quiz...'
