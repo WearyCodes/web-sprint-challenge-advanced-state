@@ -23,7 +23,6 @@ function Quiz(props) {
     // Assuming you have the selected answer in your state
     postAnswer(selectedAnswer)
       // Fetch the next quiz after posting the answer
-      postQuiz()
         fetchQuiz()
       ; // Use the action directly without props
   };
