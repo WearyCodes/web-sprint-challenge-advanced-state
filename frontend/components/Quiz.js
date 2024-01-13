@@ -5,7 +5,7 @@ import * as actionCreators from '../state/action-creators';
 
 
 function Quiz(props) {
-  const { quiz, selectAnswer, postAnswer, resetForm, fetchQuiz, selectedAnswer } = props;
+  const { quiz, selectAnswer, postAnswer, resetForm, fetchQuiz, selectedAnswer, postQuiz } = props;
 
     useEffect(() => {
     console.log(props)
@@ -21,12 +21,11 @@ function Quiz(props) {
 
   const handleAnswerSubmit = () => {
     // Assuming you have the selected answer in your state
-    postAnswer().then(() => {
+    postAnswer(selectedAnswer)
       // Fetch the next quiz after posting the answer
-      postQuiz(form).then(() => {
+      postQuiz()
         fetchQuiz()
-      }); // Use the action directly without props
-    });
+      ; // Use the action directly without props
   };
 
   return (

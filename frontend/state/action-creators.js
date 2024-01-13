@@ -56,8 +56,7 @@ export function fetchQuiz() {
 export function postAnswer() {
   return function (dispatch, getState) {
     const selectedAnswer = getState().selectedAnswer;
-    const quizId = getState().quiz.id;
-
+    const quizId = getState().quiz.quiz_id;
     // Post the answer
     fetch('http://localhost:9000/api/quiz/answer', {
       method: 'POST',
@@ -74,7 +73,7 @@ export function postAnswer() {
       })
       .then((responseData) => {
         dispatch(resetForm());
-        dispatch(setMessage(responseData.feedback));
+        dispatch(setMessage(responseData.message));
         dispatch(fetchQuiz());
       })
       .catch((error) => {
